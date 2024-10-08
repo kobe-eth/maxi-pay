@@ -18,7 +18,7 @@ contract UsageExample is Script {
         Vester vesterImpl = new Vester();
 
         // 2. Deploy the factory. Once it's deployed, ownership is transferred to DAO multisig
-        Factory factory = new Factory(address(vesterImpl));
+        Factory factory = new Factory(address(vesterImpl), vesterImpl.MAXIS_OPS());
         vm.stopBroadcast();
 
         // 3. Deploy vesting contract for any user now:

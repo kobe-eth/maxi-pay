@@ -2,9 +2,9 @@
 pragma solidity 0.8.20;
 
 import { Script } from "forge-std/Script.sol";
-import { Factory } from "../src/Factory.sol";
-import { Vester } from "../src/Vester.sol";
-import { ERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import { Factory } from "src/Factory.sol";
+import { Vester } from "src/sdbal/Vester.sol";
+import { ERC20 } from "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 
 contract ProductionWireUpDeployment is Script {
 
@@ -15,7 +15,7 @@ contract ProductionWireUpDeployment is Script {
         Vester vesterImpl = new Vester();
 
         // 2. Deploy the factory. Once it's deployed, ownership is transferred to DAO multisig
-        Factory factory = new Factory(address(vesterImpl));
+        Factory factory = new Factory(address(vesterImpl), vesterImpl.MAXIS_OPS());
         vm.stopBroadcast();
     }
 }

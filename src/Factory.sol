@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import "../lib/openzeppelin-contracts/contracts/proxy/Clones.sol";
-import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
-import { Vester } from "./Vester.sol";
-import "./interfaces/IFactory.sol";
+import "lib/openzeppelin-contracts/contracts/proxy/Clones.sol";
+import "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
+
+import "src/interfaces/IFactory.sol";
+import "src/interfaces/IVester.sol";
 
 contract Factory is Ownable, IFactory {
     using Clones for address;
@@ -12,7 +13,7 @@ contract Factory is Ownable, IFactory {
     //                         Constants                            //
     //////////////////////////////////////////////////////////////////
 
-    address public constant MAXIS_OPS = address(0x5891b90CE909d4c3540d640d2BdAAF3fD5157EAD);
+    address public immutable MAXIS_OPS;
     //////////////////////////////////////////////////////////////////
     //                         Storage                              //
     //////////////////////////////////////////////////////////////////
@@ -28,8 +29,9 @@ contract Factory is Ownable, IFactory {
 
     /// @notice Factory constructor
     /// @param _implementation Address of the implementation
-    constructor(address _implementation) Ownable() {
+    constructor(address _implementation, address _maxisOps) Ownable() {
         implementation = _implementation;
+        MAXIS_OPS = _maxisOps;
         _transferOwnership(MAXIS_OPS);
     }
 
@@ -52,7 +54,7 @@ contract Factory is Ownable, IFactory {
     /// @notice Deploy a new vesting contract
     function deployVestingContract(address _beneficiary) public onlyOwner returns (address vestingContract) {
         vestingContract = implementation.clone();
-        Vester(vestingContract).initialise(_beneficiary);
+        IVester(vestingContract).initialise(_beneficiary);
         // Put vesting contract in mapping
         vestingContracts[_beneficiary].push(vestingContract);
         emit LogVestingContractDeployed(vestingContract, _beneficiary);

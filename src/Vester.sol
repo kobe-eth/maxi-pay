@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import "../lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol";
-import "../lib/openzeppelin-contracts/contracts/security/Pausable.sol";
-import "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
-import "../lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol";
-import "./interfaces/IAuraRewardPool.sol";
-import "./interfaces/IVester.sol";
+import "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol";
+import "lib/openzeppelin-contracts/contracts/security/Pausable.sol";
+import "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol";
+import "src/interfaces/IAuraRewardPool.sol";
+import "src/interfaces/IVester.sol";
 
 library VesterErrors {
     error NotBeneficiary();

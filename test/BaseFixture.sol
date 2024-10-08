@@ -4,6 +4,7 @@ pragma solidity 0.8.20;
 import "forge-std/Test.sol";
 import "./Utils.sol";
 import "../src/Factory.sol";
+import "../src/Vester.sol";
 import "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 
 contract BaseFixture is Test {
@@ -42,6 +43,6 @@ contract BaseFixture is Test {
 
         // Implementation contract should be initialised with address(0)
         vester = new Vester();
-        factory = new Factory(address(vester));
+        factory = new Factory(address(vester), MAXIS_OPS);
     }
 }
